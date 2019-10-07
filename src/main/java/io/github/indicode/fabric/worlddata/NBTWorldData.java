@@ -4,6 +4,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -53,6 +54,18 @@ public abstract class NBTWorldData implements WorldIOCalback, NBTSavableData {
     public void onWorldLoad(File worldDirectory, File rootDirectory) {
         File backupFile = getSaveFile(worldDirectory, rootDirectory, true);
         File file = getSaveFile(worldDirectory, rootDirectory, false);
-        if (!file.exists())
+        if (!file.exists()) {
+            if (backupFile == null || !backupFile.exists()) {
+                return;
+            }
+            file = backupFile;
+        }
+        try {
+            CompoundTag tag = NbtIo.readCompressed(new FileInputStream(file));
+            if (tag == null) throw new RuntimeException(new NullPointerException("Null tag was passed for " + file.getAbsolutePath()));
+            fromNBT(tag);
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
     }
 }
