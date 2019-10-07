@@ -28,12 +28,7 @@ public class WorldSaveHandlerMixin {
     }
     @Inject(method = "saveWorld(Lnet/minecraft/world/level/LevelProperties;Lnet/minecraft/nbt/CompoundTag;)V", at = @At("RETURN"))
     private void onSaveWorld(LevelProperties levelProperties_1, CompoundTag compoundTag_1, CallbackInfo ci) {
-        WorldDataLib.getIOCallbacks().forEach(callback -> {
-            System.out.println(callback);
-            System.out.println(worldDir);
-            System.out.println(server.isDedicated() ? worldDir.getParentFile() : MinecraftClient.getInstance().runDirectory);
-            callback.onWorldSave(worldDir, server.isDedicated() ? worldDir.getParentFile() : MinecraftClient.getInstance().runDirectory);
-        });
+        WorldDataLib.getIOCallbacks().forEach(callback -> callback.onWorldSave(worldDir, server.isDedicated() ? worldDir.getParentFile() : MinecraftClient.getInstance().runDirectory));
     }
     @Final
     @Shadow
