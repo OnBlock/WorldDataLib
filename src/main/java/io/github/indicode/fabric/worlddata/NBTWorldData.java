@@ -11,11 +11,6 @@ import java.io.IOException;
  * @author Indigo Amann
  */
 public abstract class NBTWorldData implements WorldIOCalback, NBTSavableData {
-    protected boolean backup;
-
-    public NBTWorldData(boolean backup, boolean crashOnCorrupt) {
-        this.backup = backup;
-    }
 
     public abstract File getSaveFile(File worldDirectory, File rootDirectory, boolean backup);
 
@@ -23,7 +18,7 @@ public abstract class NBTWorldData implements WorldIOCalback, NBTSavableData {
     public void onWorldSave(File worldDirectory, File rootDirectory) {
         File backupFile = getSaveFile(worldDirectory, rootDirectory, true);
         File file = getSaveFile(worldDirectory, rootDirectory, false);
-        if (file.exists()) {
+        if (file.exists() && backupFile != null) {
             if (backupFile.exists()) {
                 if (!backupFile.delete()) throw new RuntimeException(new IOException("Could not delete backup file: " + backupFile.getAbsolutePath()));
             }
@@ -31,6 +26,9 @@ public abstract class NBTWorldData implements WorldIOCalback, NBTSavableData {
                 if (!backupFile.mkdirs()) throw new RuntimeException(new IOException("Could not create directory " + backupFile.getAbsolutePath() + " for data backup."));
             }
             if (!file.renameTo(backupFile)) throw new RuntimeException(new IOException("Could not rename data file " + file.getAbsolutePath() + " to backup file: " + backupFile.getAbsolutePath()));
+        }
+        if (file.exists()) {
+            if (!file.delete()) throw new RuntimeException(new IOException("Could not delete data file: " + file.getAbsolutePath()));
         }
         if (!file.getParentFile().isDirectory()) {
             if (!file.mkdirs()) throw new RuntimeException(new IOException("Could not create directory " + file.getAbsolutePath() + " for data."));
@@ -55,5 +53,6 @@ public abstract class NBTWorldData implements WorldIOCalback, NBTSavableData {
     public void onWorldLoad(File worldDirectory, File rootDirectory) {
         File backupFile = getSaveFile(worldDirectory, rootDirectory, true);
         File file = getSaveFile(worldDirectory, rootDirectory, false);
+        if (!file.exists())
     }
 }
