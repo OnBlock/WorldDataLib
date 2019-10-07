@@ -1,11 +1,11 @@
 {
   "required": true,
-  "package": "net.fabricmc.example.mixin",
+  "package": "io.github.indicode.fabric.worlddata.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "WorldSaveHandlerMixin"
   ],
   "client": [
-    "ExampleMixin"
   ],
   "injectors": {
     "defaultRequire": 1
