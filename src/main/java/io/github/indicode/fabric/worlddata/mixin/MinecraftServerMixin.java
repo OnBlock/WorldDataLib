@@ -2,7 +2,6 @@ package io.github.indicode.fabric.worlddata.mixin;
 
 import com.google.gson.JsonElement;
 import io.github.indicode.fabric.worlddata.WorldDataLib;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.LevelGeneratorType;
 import org.spongepowered.asm.mixin.Final;
@@ -24,7 +23,7 @@ public abstract class MinecraftServerMixin {
     @Shadow public abstract boolean isDedicated();
 
     @Inject(method = "loadWorld", at = @At("RETURN"))
-    private void loadClaims(String string_1, String string_2, long long_1, LevelGeneratorType levelGeneratorType_1, JsonElement jsonElement_1, CallbackInfo ci) {
-        WorldDataLib.getIOCallbacks().forEach(callback -> callback.onWorldLoad(new File(gameDir + "/" + string_1), isDedicated() ? gameDir : MinecraftClient.getInstance().runDirectory));
+    private void loadNBT(String string_1, String string_2, long long_1, LevelGeneratorType levelGeneratorType_1, JsonElement jsonElement_1, CallbackInfo ci) {
+        WorldDataLib.getIOCallbacks().forEach(callback -> callback.onWorldLoad(new File(gameDir + "/" + string_1), gameDir));
     }
 }
