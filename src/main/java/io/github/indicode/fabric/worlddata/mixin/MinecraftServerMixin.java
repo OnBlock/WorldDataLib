@@ -22,6 +22,8 @@ public abstract class MinecraftServerMixin {
 
     @Inject(method = "loadWorld", at = @At("RETURN"))
     private void loadNBT(String string_1, String string_2, long long_1, LevelGeneratorType levelGeneratorType_1, JsonElement jsonElement_1, CallbackInfo ci) {
+        WorldDataLib.Internals.setGameDir(gameDir);
+        WorldDataLib.Internals.setWorldDir(new File(gameDir + "/" + string_1));
         WorldDataLib.getIOCallbacks().forEach(callback -> callback.onWorldLoad(new File(gameDir + "/" + string_1), gameDir));
     }
 }
