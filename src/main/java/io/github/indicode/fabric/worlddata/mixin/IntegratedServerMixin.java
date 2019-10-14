@@ -32,8 +32,6 @@ public abstract class IntegratedServerMixin extends MinecraftServer {
         super(file_1, proxy_1, dataFixer_1, commandManager_1, yggdrasilAuthenticationService_1, minecraftSessionService_1, gameProfileRepository_1, userCache_1, worldGenerationProgressListenerFactory_1, string_1);
     }
 
-    @Shadow public abstract boolean isDedicated();
-
     @Inject(method = "loadWorld", at = @At("RETURN"))
     private void loadNBT(String string_1, String string_2, long long_1, LevelGeneratorType levelGeneratorType_1, JsonElement jsonElement_1, CallbackInfo ci) {
         WorldDataLib.getIOCallbacks().forEach(callback -> callback.onWorldLoad(new File(getLevelStorage().getSavesDirectory() + "/" + string_1), MinecraftClient.getInstance().runDirectory));
