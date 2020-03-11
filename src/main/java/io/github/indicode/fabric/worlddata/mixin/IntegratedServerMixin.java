@@ -6,6 +6,7 @@ import com.mojang.authlib.minecraft.MinecraftSessionService;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import com.mojang.datafixers.DataFixer;
 import io.github.indicode.fabric.worlddata.WorldDataLib;
+import net.minecraft.class_4952;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.WorldGenerationProgressListenerFactory;
@@ -33,7 +34,7 @@ public abstract class IntegratedServerMixin extends MinecraftServer {
     }
 
     @Inject(method = "loadWorld", at = @At("RETURN"))
-    private void loadNBT(String string_1, String string_2, long long_1, LevelGeneratorType levelGeneratorType_1, JsonElement jsonElement_1, CallbackInfo ci) {
+    private void loadNBT(String string_1, String string_2, long long_1, class_4952 class_4952_1, CallbackInfo ci) {
         WorldDataLib.Internals.setGameDir(MinecraftClient.getInstance().runDirectory);
         WorldDataLib.Internals.setWorldDir(new File(getLevelStorage().getSavesDirectory() + "/" + string_1));
         WorldDataLib.getIOCallbacks().forEach(callback -> callback.onWorldLoad(new File(getLevelStorage().getSavesDirectory() + "/" + string_1), MinecraftClient.getInstance().runDirectory));
