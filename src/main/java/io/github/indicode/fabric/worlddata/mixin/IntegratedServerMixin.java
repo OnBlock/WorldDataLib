@@ -34,7 +34,7 @@ public abstract class IntegratedServerMixin extends MinecraftServer {
         super(levelStorage$class_5143_1, proxy_1, dataFixer_1, commandManager_1, minecraftSessionService_1, gameProfileRepository_1, userCache_1, worldGenerationProgressListenerFactory_1);
     }
 
-    @Inject(method = "loadWorld", at = @At("RETURN"))
+    @Inject(method = "loadWorld", at = @At("HEAD"))
     private void loadNBT(String string_1, long long_1, LevelGeneratorOptions levelGeneratorOptions_1, CallbackInfo ci) {
         WorldDataLib.Internals.setGameDir(MinecraftClient.getInstance().runDirectory);
         WorldDataLib.Internals.setWorldDir(new File(worldStorage + "/" + string_1));

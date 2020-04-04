@@ -14,7 +14,6 @@
   },
 
   "license": "Apache 2.0",
-  "icon": "assets/modid/icon.png",
 
   "environment": "*",
   "mixins": [
@@ -25,6 +24,5 @@
     "fabricloader": ">=0.4.0"
   },
   "suggests": {
-    "flamingo": "*"
   }
 }

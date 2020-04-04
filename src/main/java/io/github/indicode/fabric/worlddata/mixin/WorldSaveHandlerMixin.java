@@ -21,6 +21,11 @@ import java.io.File;
 @Mixin(WorldSaveHandler.class)
 public class WorldSaveHandlerMixin {
     private MinecraftServer server;
+
+    @Final
+    @Shadow
+    private File worldDir;
+
     @Inject(method = "<init>", at = @At("RETURN"))
     private void setServer(File file_1, String string_1, MinecraftServer minecraftServer_1, DataFixer dataFixer_1, CallbackInfo ci) {
         server = minecraftServer_1;
@@ -30,7 +35,4 @@ public class WorldSaveHandlerMixin {
         WorldDataLib.getIOCallbacks().forEach(callback -> callback.onWorldSave(worldDir, server.isDedicated() ? worldDir.getParentFile() : worldDir.getParentFile().getParentFile()));
         WorldDataLib.Internals.clearDirs();
     }
-    @Final
-    @Shadow
-    private File worldDir;
 }
