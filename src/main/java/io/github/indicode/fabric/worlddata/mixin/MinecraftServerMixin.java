@@ -18,6 +18,7 @@ import java.io.File;
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin {
 
+
     @Shadow public abstract File getRunDirectory();
 
     @Inject(method = "loadWorld", at = @At("HEAD"))
@@ -25,7 +26,7 @@ public abstract class MinecraftServerMixin {
         //Test
         //WorldDataLib.addIOCallback(new Test());
 
-        WorldDataLib.Internals.setGameDir(getRunDirectory());
+        WorldDataLib.Internals.setGameDir(this.getRunDirectory());
         WorldDataLib.Internals.setWorldDir(new File(getRunDirectory() + "/" + string_1));
         WorldDataLib.getIOCallbacks().forEach(callback -> callback.onWorldLoad(new File(getRunDirectory() + "/" + string_1), getRunDirectory()));
     }

@@ -30,8 +30,8 @@ public abstract class IntegratedServerMixin extends MinecraftServer {
     @Shadow public abstract File getRunDirectory();
     private final File worldStorage = getRunDirectory().toPath().resolve("world").toFile();
 
-    public IntegratedServerMixin(LevelStorage.class_5143 levelStorage$class_5143_1, Proxy proxy_1, DataFixer dataFixer_1, CommandManager commandManager_1, MinecraftSessionService minecraftSessionService_1, GameProfileRepository gameProfileRepository_1, UserCache userCache_1, WorldGenerationProgressListenerFactory worldGenerationProgressListenerFactory_1) {
-        super(levelStorage$class_5143_1, proxy_1, dataFixer_1, commandManager_1, minecraftSessionService_1, gameProfileRepository_1, userCache_1, worldGenerationProgressListenerFactory_1);
+    public IntegratedServerMixin(LevelStorage.Session session, Proxy proxy_1, DataFixer dataFixer_1, CommandManager commandManager_1, MinecraftSessionService minecraftSessionService_1, GameProfileRepository gameProfileRepository_1, UserCache userCache_1, WorldGenerationProgressListenerFactory worldGenerationProgressListenerFactory_1) {
+        super(session, proxy_1, dataFixer_1, commandManager_1, minecraftSessionService_1, gameProfileRepository_1, userCache_1, worldGenerationProgressListenerFactory_1);
     }
 
     @Inject(method = "loadWorld", at = @At("HEAD"))
