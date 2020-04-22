@@ -3,11 +3,10 @@
   "package": "io.github.indicode.fabric.worlddata.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "WorldSaveHandlerMixin",
-    "MinecraftServerMixin"
+    "LevelStorageMixin",
+    "LevelStorageSessionMixin"
   ],
   "client": [
-    "IntegratedServerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

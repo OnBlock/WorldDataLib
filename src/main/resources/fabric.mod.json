@@ -6,7 +6,8 @@
   "name": "World Data Lib",
   "description": "Library to store NBT data per world. Its annoying to write this over and over again...",
   "authors": [
-    "Indicode"
+    "Indicode",
+    "Maintained by CODY_AI"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
