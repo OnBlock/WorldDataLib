@@ -18,10 +18,10 @@ public abstract class MinecraftDedicatedServerMixin {
         String currentDir = System.getProperty("user.dir");
 
         //TODO: Comment before compiling
-        new Test();
+        //WorldDataLib.addIOCallback(new Test());
 
         WorldDataLib.Internals.setGameDir(new File(currentDir));
         WorldDataLib.Internals.setWorldDir(new File(currentDir).toPath().resolve("world").toFile());
-        WorldDataLib.getIOCallbacks().forEach(WorldDataLib::triggerCallbackSave);
+        WorldDataLib.getIOCallbacks().forEach(WorldDataLib::triggerCallbackLoad);
     }
 }

@@ -7,6 +7,10 @@ import java.util.Date;
 
 public class Test extends NBTWorldData {
 
+    public Test() {
+        System.out.println("Test Created");
+    }
+
     @Override
     public File getSaveFile(File worldDirectory, File rootDirectory, boolean backup) {
         return rootDirectory.toPath().resolve("test.dat" + (backup ? "_old" : "")).toFile();
