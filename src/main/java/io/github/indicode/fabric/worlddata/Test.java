@@ -16,6 +16,7 @@ public class Test extends NBTWorldData {
     public CompoundTag toNBT(CompoundTag tag) {
         CompoundTag compound = new CompoundTag();
         System.out.println("[WorldDataLib Test] Writing to NBT");
+        System.out.println("[WorldDataLib Test] Test Succeeded");
         compound.putString("curr", new Date().toString());
         return compound;
     }

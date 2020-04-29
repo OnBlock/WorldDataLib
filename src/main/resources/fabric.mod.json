@@ -16,7 +16,7 @@
 
   "license": "Apache 2.0",
 
-  "environment": "*",
+  "environment": "server",
   "mixins": [
     "worlddata.mixins.json"
   ],

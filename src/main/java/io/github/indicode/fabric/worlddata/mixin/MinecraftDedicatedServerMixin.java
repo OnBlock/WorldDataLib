@@ -2,8 +2,7 @@ package io.github.indicode.fabric.worlddata.mixin;
 
 import io.github.indicode.fabric.worlddata.Test;
 import io.github.indicode.fabric.worlddata.WorldDataLib;
-import net.minecraft.class_5219;
-import net.minecraft.world.level.storage.LevelStorage;
+import net.minecraft.server.dedicated.MinecraftDedicatedServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -11,11 +10,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.io.File;
 
-@Mixin(LevelStorage.class)
-public abstract class LevelStorageMixin {
+@Mixin(MinecraftDedicatedServer.class)
+public abstract class MinecraftDedicatedServerMixin {
 
-    @Inject(method = "readLevelProperties(Ljava/io/File;)Lnet/minecraft/class_5219;", at = @At("HEAD"))
-    private void onReadLevelProperties(File file_1, CallbackInfoReturnable<class_5219> cir) {
+    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Util;getMeasuringTimeNano()J", ordinal = 1), method = "setupServer") // Does not work
+    private void oky$setupServer$ready(CallbackInfoReturnable<Boolean> cir) {
         String currentDir = System.getProperty("user.dir");
 
         //TODO: Comment before compiling
@@ -25,5 +24,4 @@ public abstract class LevelStorageMixin {
         WorldDataLib.Internals.setWorldDir(new File(currentDir).toPath().resolve("world").toFile());
         WorldDataLib.getIOCallbacks().forEach(WorldDataLib::triggerCallbackSave);
     }
-
 }
