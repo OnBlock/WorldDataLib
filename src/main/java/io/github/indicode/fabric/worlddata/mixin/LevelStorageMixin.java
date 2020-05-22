@@ -1,8 +1,8 @@
 package io.github.indicode.fabric.worlddata.mixin;
 
+import com.mojang.datafixers.DataFixer;
 import io.github.indicode.fabric.worlddata.Test;
 import io.github.indicode.fabric.worlddata.WorldDataLib;
-import net.minecraft.class_5219;
 import net.minecraft.world.level.storage.LevelStorage;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -10,12 +10,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.io.File;
+import java.util.function.BiFunction;
 
 @Mixin(LevelStorage.class)
 public abstract class LevelStorageMixin {
 
-    @Inject(method = "readLevelProperties(Ljava/io/File;)Lnet/minecraft/class_5219;", at = @At("HEAD"))
-    private void onReadLevelProperties(File file_1, CallbackInfoReturnable<class_5219> cir) {
+    @Inject(method = "Lnet/minecraft/world/level/storage/LevelStorage;readLevelProperties(Ljava/io/File;Ljava/util/function/BiFunction;)Ljava/lang/Object;", at = @At("HEAD"))
+    private <T> void onReadLevelProperties(File file_1, BiFunction<File, DataFixer, T> biFunction_1, CallbackInfoReturnable<T> cir) {
         String currentDir = System.getProperty("user.dir");
 
         //TODO: Comment before compiling
